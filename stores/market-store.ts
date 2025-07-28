@@ -59,6 +59,7 @@ export const useMarketStore = create<MarketStore>()(
     persist(
       (set, get) => ({
         ...initialState,
+
         setSelectedDate: (date) => set({ selectedDate: date }),
         setCurrentDate: (date) => set({ currentDate: date }),
         setDateRange: (range) => set({ selectedDateRange: range }),
@@ -72,15 +73,19 @@ export const useMarketStore = create<MarketStore>()(
           }
           set({ currentDate: newDate })
         },
+
         setSelectedSymbol: (symbol) => set({ selectedSymbol: symbol }),
         setTimeframe: (timeframe) => set({ timeframe }),
         setSelectedMetric: (metric) => set({ selectedMetric: metric }),
+
         toggleExportDialog: () => set((state) => ({ isExportDialogOpen: !state.isExportDialogOpen })),
         toggleSettings: () => set((state) => ({ isSettingsOpen: !state.isSettingsOpen })),
         setChartHeight: (height) => set({ chartHeight: height }),
+
         setColorScheme: (scheme) => set({ colorScheme: scheme }),
         setAutoRefresh: (enabled) => set({ autoRefresh: enabled }),
         setRefreshInterval: (interval) => set({ refreshInterval: interval }),
+
         resetFilters: () =>
           set({
             selectedSymbol: "BTCUSDT",

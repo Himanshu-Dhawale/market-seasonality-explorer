@@ -15,7 +15,6 @@ export default function MarketSeasonalityExplorer() {
   const { data: monthlyData, isLoading, error, refetch } = useMonthlyMarketData()
 
   usePrefetchAdjacentMonths()
-
   useRealTimeData()
 
   if (error) {

@@ -1,36 +1,129 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Market Seasonality Explorer
+
+A React application for visualizing historical volatility, liquidity, and performance data for cryptocurrency markets using an interactive calendar interface.
+
+## Features
+
+- **Interactive Calendar**: Visual representation of market data with color-coded cells
+- **Real-time Data**: Live market data from Binance API with WebSocket connections
+- **Multiple Metrics**: View volatility, liquidity, and performance data
+- **Historical Analysis**: Detailed charts and trends for selected dates
+- **Responsive Design**: Works on desktop and mobile devices
+- **State Management**: Zustand for global state, TanStack Query for data fetching
+
+## Tech Stack
+
+- **Framework**: Next.js 14 with App Router
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS
+- **UI Components**: shadcn/ui
+- **State Management**: Zustand
+- **Data Fetching**: TanStack Query (React Query)
+- **Charts**: Recharts
+- **API**: Binance REST API & WebSocket
+
+## Project Structure
+
+\`\`\`
+├── app/
+│   ├── layout.tsx          # Root layout with providers
+│   ├── page.tsx            # Main application page
+│   └── globals.css         # Global styles
+├── components/
+│   ├── api-error-handler.tsx    # API error handling
+│   ├── calendar-cell.tsx        # Individual calendar cell
+│   ├── data-dashboard.tsx       # Selected date details
+│   ├── filter-controls.tsx      # Symbol/metric filters
+│   ├── historical-analysis.tsx  # Charts and analysis
+│   ├── loading-spinner.tsx      # Loading indicator
+│   └── market-calendar.tsx      # Main calendar component
+├── hooks/
+│   └── use-market-data.ts       # Data fetching hooks
+├── lib/
+│   ├── api-integration.ts       # Binance API client
+│   └── market-data.ts          # Data types and utilities
+├── providers/
+│   └── query-provider.tsx      # TanStack Query setup
+└── stores/
+    └── market-store.ts         # Zustand state management
+\`\`\`
+
+## Key Components
+
+### MarketCalendar
+Main calendar interface displaying market data as color-coded cells based on selected metrics.
+
+### DataDashboard
+Sidebar showing detailed information for the selected date including OHLC prices and key metrics.
+
+### HistoricalAnalysis
+Comprehensive charts showing price trends, volatility patterns, and volume analysis around selected dates.
+
+### FilterControls
+Control panel for selecting cryptocurrency symbols, timeframes, and metrics with real-time 24hr statistics.
+
+## State Management
+
+### Market Store (Zustand)
+- Calendar navigation state
+- Selected symbols and metrics
+- UI preferences and settings
+- Persistent user preferences
+
+### Data Hooks (TanStack Query)
+- `useMonthlyMarketData`: Monthly calendar data
+- `useHistoricalData`: Historical analysis data
+- `use24hrStats`: Real-time market statistics
+- `useRealTimeData`: WebSocket price updates
+
+## API Integration
+
+### Binance REST API
+- `/klines`: Historical candlestick data
+- `/ticker/24hr`: 24-hour statistics
+- `/avgPrice`: Average price data
+
+### WebSocket Streams
+- Real-time price updates
+- Live market statistics
+
+## Data Flow
+
+1. User selects symbol/metric in FilterControls
+2. Market store updates global state
+3. Data hooks fetch from Binance API
+4. Calendar renders with color-coded data
+5. User clicks date to view details
+6. Historical analysis loads additional data
+
+## Error Handling
+
+- Network connectivity issues
+- API rate limiting
+- Invalid symbols/parameters
+- Data inconsistencies
+- Graceful fallbacks and retry logic
+
+## Performance Features
+
+- Query caching and stale-while-revalidate
+- Adjacent month prefetching
+- Optimistic updates
+- Debounced API calls
+- Efficient re-renders with Zustand
 
 ## Getting Started
 
-First, run the development server:
+1. Install dependencies: `npm install`
+2. Run development server: `npm run dev`
+3. Open http://localhost:3000
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Environment Variables
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+No API keys required - uses public Binance endpoints.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Browser Support
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Modern browsers with ES2020+ support
+- WebSocket support for real-time features
+- Responsive design for mobile devices

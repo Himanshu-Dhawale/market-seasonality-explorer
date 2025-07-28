@@ -64,6 +64,7 @@ export function FilterControls() {
               )
             )}
           </div>
+
           <div className="flex items-center space-x-2">
             <label className="text-sm font-medium">Timeframe:</label>
             <div className="flex space-x-1">

@@ -1,6 +1,7 @@
 "use client"
 
-import React, { useEffect } from "react"
+import React from "react"
+
 import { useQuery, useQueries, useQueryClient } from "@tanstack/react-query"
 import { marketAPI } from "@/lib/api-integration"
 import { useMarketStore } from "../../stores/market-store"
@@ -130,7 +131,7 @@ export function usePrefetchAdjacentMonths() {
   const nextMonth = new Date(currentDate)
   nextMonth.setMonth(currentDate.getMonth() + 1)
 
-  useEffect(() => {
+  React.useEffect(() => {
     prefetchMonth(prevMonth)
     prefetchMonth(nextMonth)
   }, [selectedSymbol, currentDate])
@@ -140,7 +141,7 @@ export function useRealTimeData() {
   const { selectedSymbol } = useMarketStore()
   const queryClient = useQueryClient()
 
-  useEffect(() => {
+  React.useEffect(() => {
     const ws = marketAPI.createWebSocketConnection(selectedSymbol, (data) => {
       queryClient.setQueryData(marketKeys.stats(selectedSymbol), (oldData: any) => ({
         ...oldData,
